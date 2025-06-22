@@ -1,0 +1,1 @@
+// We can give a web3 example, a web2 example, and a precomputed example where they already know who should get the rewards
