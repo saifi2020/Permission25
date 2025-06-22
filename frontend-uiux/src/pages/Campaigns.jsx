@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Table,
@@ -10,10 +11,22 @@ import {
 } from '../components/ui/table'
 import { Badge } from '../components/ui/badge'
 import { Button } from '../components/ui/button'
-import { ExternalLink, Users, Coins } from 'lucide-react'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '../components/ui/pagination'
+import { ChevronRight, Users, Coins } from 'lucide-react'
 
 export function Campaigns() {
-  const campaigns = [
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 5
+
+  const allCampaigns = [
     {
       id: 1,
       name: 'Early Adopter Rewards',
@@ -54,7 +67,52 @@ export function Campaigns() {
       endDate: '2025-05-01',
       kycRequired: 'Basic',
     },
+    {
+      id: 5,
+      name: 'Governance Participants',
+      status: 'active',
+      totalRewards: '75,000 GOV',
+      participants: 3200,
+      claimed: 1800,
+      endDate: '2025-09-01',
+      kycRequired: 'Basic',
+    },
+    {
+      id: 6,
+      name: 'Bug Bounty Program',
+      status: 'active',
+      totalRewards: '200,000 USDT',
+      participants: 450,
+      claimed: 125,
+      endDate: '2025-12-31',
+      kycRequired: 'Enhanced',
+    },
+    {
+      id: 7,
+      name: 'Community Contributors',
+      status: 'completed',
+      totalRewards: '30,000 COMM',
+      participants: 890,
+      claimed: 890,
+      endDate: '2025-04-15',
+      kycRequired: 'None',
+    },
+    {
+      id: 8,
+      name: 'Liquidity Providers',
+      status: 'active',
+      totalRewards: '150,000 LP',
+      participants: 7500,
+      claimed: 4200,
+      endDate: '2025-10-01',
+      kycRequired: 'Basic',
+    },
   ]
+
+  const totalPages = Math.ceil(allCampaigns.length / itemsPerPage)
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const campaigns = allCampaigns.slice(startIndex, endIndex)
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -63,6 +121,10 @@ export function Campaigns() {
       case 'completed': return 'outline'
       default: return 'outline'
     }
+  }
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page)
   }
 
   return (
@@ -76,7 +138,7 @@ export function Campaigns() {
 
       <div className="rounded-md border">
         <Table>
-          <TableCaption>A list of all reward campaigns</TableCaption>
+          <TableCaption>Showing {startIndex + 1}-{Math.min(endIndex, allCampaigns.length)} of {allCampaigns.length} campaigns</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead>Campaign Name</TableHead>
@@ -86,12 +148,12 @@ export function Campaigns() {
               <TableHead>Claimed</TableHead>
               <TableHead>End Date</TableHead>
               <TableHead>KYC</TableHead>
-              <TableHead></TableHead>
+              <TableHead className="w-[50px]"></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {campaigns.map((campaign) => (
-              <TableRow key={campaign.id}>
+              <TableRow key={campaign.id} className="group">
                 <TableCell className="font-medium">{campaign.name}</TableCell>
                 <TableCell>
                   <Badge variant={getStatusColor(campaign.status)}>
@@ -116,17 +178,66 @@ export function Campaigns() {
                 <TableCell>{campaign.endDate}</TableCell>
                 <TableCell>{campaign.kycRequired}</TableCell>
                 <TableCell>
-                  <Button variant="ghost" size="sm" asChild>
-                    <Link to={`/campaign/${campaign.id}`}>
-                      View
-                      <ExternalLink className="h-3 w-3 ml-2" />
-                    </Link>
-                  </Button>
+                  <Link 
+                    to={`/campaign/${campaign.id}`}
+                    className="flex items-center justify-center p-2 hover:bg-accent rounded-md transition-colors"
+                  >
+                    <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
+      </div>
+
+      <div className="mt-6">
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious 
+                onClick={() => handlePageChange(currentPage - 1)}
+                className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+              />
+            </PaginationItem>
+            
+            {[...Array(totalPages)].map((_, index) => {
+              const pageNumber = index + 1
+              if (
+                pageNumber === 1 ||
+                pageNumber === totalPages ||
+                (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
+              ) {
+                return (
+                  <PaginationItem key={pageNumber}>
+                    <PaginationLink
+                      onClick={() => handlePageChange(pageNumber)}
+                      isActive={currentPage === pageNumber}
+                      className="cursor-pointer"
+                    >
+                      {pageNumber}
+                    </PaginationLink>
+                  </PaginationItem>
+                )
+              }
+              if (pageNumber === currentPage - 2 || pageNumber === currentPage + 2) {
+                return (
+                  <PaginationItem key={pageNumber}>
+                    <PaginationEllipsis />
+                  </PaginationItem>
+                )
+              }
+              return null
+            })}
+            
+            <PaginationItem>
+              <PaginationNext 
+                onClick={() => handlePageChange(currentPage + 1)}
+                className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     </div>
   )

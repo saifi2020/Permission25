@@ -1,4 +1,5 @@
 import { Github, Twitter, FileText } from 'lucide-react'
+import { ThemeToggle } from './ThemeToggle'
 
 export function Footer() {
   return (
@@ -15,6 +16,8 @@ export function Footer() {
           </div>
           
           <div className="flex items-center space-x-6">
+            <ThemeToggle />
+            <div className="h-6 w-px bg-border" />
             <a href="#" className="text-muted-foreground hover:text-primary">
               <Github className="h-5 w-5" />
             </a>
