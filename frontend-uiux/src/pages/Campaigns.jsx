@@ -138,7 +138,6 @@ export function Campaigns() {
 
       <div className="rounded-md border">
         <Table>
-          <TableCaption>Showing {startIndex + 1}-{Math.min(endIndex, allCampaigns.length)} of {allCampaigns.length} campaigns</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead>Campaign Name</TableHead>
