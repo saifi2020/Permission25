@@ -11,8 +11,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "127.0.0.1:8545:8545"
-    environment:
-      - # RPC_URL=http://localhost:8545
+    # environment:
+      # - RPC_URL=http://localhost:8545
 
   builder:
     build:
