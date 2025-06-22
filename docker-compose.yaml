@@ -14,7 +14,17 @@ services:
     # environment:
       # - RPC_URL=http://localhost:8545
 
-  # builder:
-  #   build:
-  #     context: ./smart-contract
-  #     dockerfile: Dockerfile
+  frontend:
+    build:
+      context: ./frontend-uiux
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:8080:80"
+
+  builder:
+    build:
+      context: ./smart-contract
+      dockerfile: Dockerfile
+    # Since we also deploy in builder, for now
+    depends_on:
+      - anvil
