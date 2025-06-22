@@ -14,7 +14,7 @@ services:
     # environment:
       # - RPC_URL=http://localhost:8545
 
-  builder:
-    build:
-      context: ./smart-contract
-      dockerfile: Dockerfile
+  # builder:
+  #   build:
+  #     context: ./smart-contract
+  #     dockerfile: Dockerfile
