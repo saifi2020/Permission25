@@ -27,8 +27,8 @@ This architecture defines a modular and secure framework to perform onchain dist
 3. Use PYUSD as the final rewards token that every user will claim. Native token can be swapped for PYUSD so Users are able to utilize the rewards amounts to pay for real world services using Pay Pal payment checkout. 
 
 ## Target Markets
-1. Onchain Campaigns, Bootstrapping Users to projects, Airdrop early users, Incentivized Testnets 
-2. Real World Actions : Cost savings areas in the Hotel and Airlines industry redeemable to points, Market Research and Feedback efforts redeemable to rewards and more
+1. Onchain Campaigns, Bootstrapping Users to projects, Airdrop early users, Incentivized Testnets, Voting & DAO incentivization 
+2. Real World Actions : Cost savings areas in the Hotel and Airlines industry redeemable to points, Market Research and Feedback efforts redeemable to rewards, Referrals
    
 # System Components
 ## 1. Secure Evaluation of Eligibility Criteria & Merkle Tree Generation
