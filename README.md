@@ -26,6 +26,10 @@ This architecture defines a modular and secure framework to perform onchain dist
 2. Integrate with Forte for Compliance Rules check and deploy the application on Binance Chain
 3. Use PYUSD as the final rewards token that every user will claim. Native token can be swapped for PYUSD so Users are able to utilize the rewards amounts to pay for real world services using Pay Pal payment checkout. 
 
+## Target Markets
+1. Onchain Campaigns, Bootstrapping Users to projects, Airdrop early users, Incentivized Testnets 
+2. Real World Actions : Cost savings areas in the Hotel and Airlines industry redeemable to points, Market Research and Feedback efforts redeemable to rewards and more
+   
 # System Components
 ## 1. Secure Evaluation of Eligibility Criteria & Merkle Tree Generation
 A TEE (e.g., Intel SGX, AWS Nitro) securely evaluates user eligibility based on:
