@@ -21,7 +21,7 @@ services:
     ports:
       - "127.0.0.1:8080:80"
 
-  # builder:
-  #   build:
-  #     context: ./smart-contract
-  #     dockerfile: Dockerfile
+  builder:
+    build:
+      context: ./smart-contract
+      dockerfile: Dockerfile

@@ -6,5 +6,5 @@ WORKDIR /app
  
 # Build and test the source code
 COPY . .
-RUN forge build
-RUN forge test
+
+ENTRYPOINT [ "bash", "entrypoint.sh" ]
