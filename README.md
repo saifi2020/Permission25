@@ -1,4 +1,8 @@
 # _Dev Readme - Public Readme below_
+
+## Usage
+`docker compose up --build` will launch the anvil localnet, the Dapp frontend, and the smart contract builder & tester.
+
 ## Smart Contracts
 Our smart contracts implement the onchain logic for creating a campaign and claiming rewards.
 This is found in [smart-contracts/](smart-contracts/)

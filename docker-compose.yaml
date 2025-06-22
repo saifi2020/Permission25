@@ -25,3 +25,6 @@ services:
     build:
       context: ./smart-contract
       dockerfile: Dockerfile
+    # Since we also deploy in builder, for now
+    depends_on:
+      - anvil
