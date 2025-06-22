@@ -1,0 +1,20 @@
+# Run all the components of our project
+
+# NOT ready to be used (in development nor production)
+# Feel free to make this work then let us know to switch over to it
+# @AdnanSlef will get to this later otherwise
+
+services:
+  anvil:
+    build:
+      context: ./smart-contract/deployment
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:8545:8545"
+    environment:
+      - # RPC_URL=http://localhost:8545
+
+  builder:
+    build:
+      context: ./smart-contract
+      dockerfile: Dockerfile
