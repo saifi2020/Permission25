@@ -22,8 +22,9 @@ The claim prover is used to allow participants to prove their involvement in the
 This architecture defines a modular and secure framework to perform onchain distribution of rewards to users based on complex eligibility rules that may involve onchain behavior, offchain events, or a combination of both. The system ensures privacy, compliance, and scalability by leveraging a combination of Trusted Execution Environments (TEE), Zero-Knowledge Proofs (ZKPs), and smart contract composability.
 
 ## Goals for the Hackathon
-1. Integrate with Forte for Compliance Rules check and deploy the application on Binance Chain
-2. Use PYUSD as the final rewards token that every user will claim. Native token can be swapped for PYUSD so Users are able to utilize the rewards amounts to pay for real world services using Pay Pal payment checkout. 
+1. Build a POC for a simple campaign, use TEE attestation and a client side zero knowledge proof to claim rewards by eligible users. Build a simple dAPP for just one campaign flow. [ simple airdrop to a list of wallet addresses] and integrate with Smart Contract.
+2. Integrate with Forte for Compliance Rules check and deploy the application on Binance Chain
+3. Use PYUSD as the final rewards token that every user will claim. Native token can be swapped for PYUSD so Users are able to utilize the rewards amounts to pay for real world services using Pay Pal payment checkout. 
 
 # System Components
 ## 1. Secure Evaluation of Eligibility Criteria & Merkle Tree Generation
