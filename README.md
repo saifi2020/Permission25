@@ -28,7 +28,7 @@ This architecture defines a modular and secure framework to perform onchain dist
 
 ## Target Markets
 1. Onchain Campaigns, Bootstrapping Users to projects, Airdrop early users, Incentivized Testnets, Voting & DAO incentivization 
-2. Real World Actions : Cost savings areas in the Hotel and Airlines industry redeemable to points, Market Research and Feedback efforts redeemable to rewards, Referrals
+2. Real World Actions : Referrals, Loyalty Points, Gamified Quests, Cashback/spend based, Contests, Learn to Earn, Subscription Inventives
    
 # System Components
 ## 1. Secure Evaluation of Eligibility Criteria & Merkle Tree Generation
