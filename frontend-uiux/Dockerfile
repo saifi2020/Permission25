@@ -41,7 +41,8 @@ RUN echo '#!/bin/sh' > /docker-entrypoint.sh && \
     echo '  VITE_FORTE_API_URL: "${VITE_FORTE_API_URL}",' >> /docker-entrypoint.sh && \
     echo '  VITE_IPFS_GATEWAY: "${VITE_IPFS_GATEWAY}",' >> /docker-entrypoint.sh && \
     echo '  VITE_TEE_ENDPOINT: "${VITE_TEE_ENDPOINT}",' >> /docker-entrypoint.sh && \
-    echo '  VITE_ENABLE_TESTNET: "${VITE_ENABLE_TESTNET}"' >> /docker-entrypoint.sh && \
+    echo '  VITE_ENABLE_TESTNET: "${VITE_ENABLE_TESTNET}",' >> /docker-entrypoint.sh && \
+    echo '  VITE_WALLETCONNECT_PROJECT_ID: "${VITE_WALLETCONNECT_PROJECT_ID}"' >> /docker-entrypoint.sh && \
     echo '};' >> /docker-entrypoint.sh && \
     echo 'EOF' >> /docker-entrypoint.sh && \
     echo 'nginx -g "daemon off;"' >> /docker-entrypoint.sh && \
@@ -49,14 +50,15 @@ RUN echo '#!/bin/sh' > /docker-entrypoint.sh && \
 
 # Environment variables (with defaults for development)
 ENV VITE_API_URL=http://localhost:3000/api
-ENV VITE_CHAIN_ID=1
-ENV VITE_RPC_URL=https://eth-mainnet.g.alchemy.com/v2/your-api-key
+ENV VITE_CHAIN_ID=56
+ENV VITE_RPC_URL=https://bsc-dataseed.binance.org
 ENV VITE_FACTORY_CONTRACT_ADDRESS=0x0000000000000000000000000000000000000000
 ENV VITE_VERIFIER_CONTRACT_ADDRESS=0x0000000000000000000000000000000000000000
 ENV VITE_FORTE_API_URL=https://api.forte.io
 ENV VITE_IPFS_GATEWAY=https://gateway.pinata.cloud/ipfs/
 ENV VITE_TEE_ENDPOINT=http://localhost:8080
 ENV VITE_ENABLE_TESTNET=false
+ENV VITE_WALLETCONNECT_PROJECT_ID=2fac6d322c1f39c27f18efa0c7a6a0f2
 
 # Expose port 80
 EXPOSE 80

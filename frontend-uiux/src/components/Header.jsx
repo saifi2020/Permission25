@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import { Shield, Plus } from 'lucide-react'
-import { Button } from './ui/button'
+import { Shield } from 'lucide-react'
+import { AuthStatus } from './AuthStatus'
 
 export function Header({ onNewCampaign }) {
   return (
@@ -18,10 +18,8 @@ export function Header({ onNewCampaign }) {
           <Link to="/about" className="text-sm font-medium hover:text-primary">
             About
           </Link>
-          <Button onClick={onNewCampaign} size="sm">
-            <Plus className="h-4 w-4 mr-2" />
-            New Campaign
-          </Button>
+          
+          <AuthStatus onNewCampaign={onNewCampaign} />
         </nav>
       </div>
     </header>

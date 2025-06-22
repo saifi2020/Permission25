@@ -10,14 +10,15 @@ const getConfig = () => {
   // In development, use Vite environment variables
   return {
     VITE_API_URL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
-    VITE_CHAIN_ID: import.meta.env.VITE_CHAIN_ID || '1',
-    VITE_RPC_URL: import.meta.env.VITE_RPC_URL || 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    VITE_CHAIN_ID: import.meta.env.VITE_CHAIN_ID || '56',
+    VITE_RPC_URL: import.meta.env.VITE_RPC_URL || 'https://bsc-dataseed.binance.org',
     VITE_FACTORY_CONTRACT_ADDRESS: import.meta.env.VITE_FACTORY_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000',
     VITE_VERIFIER_CONTRACT_ADDRESS: import.meta.env.VITE_VERIFIER_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000',
     VITE_FORTE_API_URL: import.meta.env.VITE_FORTE_API_URL || 'https://api.forte.io',
     VITE_IPFS_GATEWAY: import.meta.env.VITE_IPFS_GATEWAY || 'https://gateway.pinata.cloud/ipfs/',
     VITE_TEE_ENDPOINT: import.meta.env.VITE_TEE_ENDPOINT || 'http://localhost:8080',
     VITE_ENABLE_TESTNET: import.meta.env.VITE_ENABLE_TESTNET === 'true' || false,
+    VITE_WALLETCONNECT_PROJECT_ID: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || '2fac6d322c1f39c27f18efa0c7a6a0f2',
   }
 }
 
@@ -34,4 +35,5 @@ export const {
   VITE_IPFS_GATEWAY: IPFS_GATEWAY,
   VITE_TEE_ENDPOINT: TEE_ENDPOINT,
   VITE_ENABLE_TESTNET: ENABLE_TESTNET,
+  VITE_WALLETCONNECT_PROJECT_ID: WALLETCONNECT_PROJECT_ID,
 } = config
