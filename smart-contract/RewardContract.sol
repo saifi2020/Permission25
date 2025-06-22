@@ -3,6 +3,7 @@ contract RewardContract {
     constructor(uint256 _rewardValidationKey) {
         rewardValidationKey = _rewardValidationKey
     };
+
     function claimRewards(uint256 claim) public {
         // check if msg.sender is owed some rewards
         assert _isValidClaim(claim);
@@ -11,6 +12,7 @@ contract RewardContract {
     function setRewards(uint256 rewards) public {
         assert _isValid(rewards);
     };
+    
     function _isValidRewards(uint256 rewards) internal returns (bool) {
         // Check if the rewards are accurate
         // Using rewardValidationKey
