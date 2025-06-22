@@ -1,4 +1,4 @@
-# Dev Readme - Public Readme below
+# _Dev Readme - Public Readme below_
 ## Smart Contracts
 Our smart contracts implement the onchain logic for creating a campaign and claiming rewards.
 This is found in [smart-contracts/](smart-contracts/)
@@ -17,9 +17,14 @@ This is found in [frontend-uiux/](frontend-uiux/).
 ## Claim Prover
 The claim prover is used to allow participants to prove their involvement in the campaign and 
 
-# Public readme
+# _Public readme_
 # Private Onchain Rewards 
 This architecture defines a modular and secure framework to perform onchain distribution of rewards to users based on complex eligibility rules that may involve onchain behavior, offchain events, or a combination of both. The system ensures privacy, compliance, and scalability by leveraging a combination of Trusted Execution Environments (TEE), Zero-Knowledge Proofs (ZKPs), and smart contract composability.
+
+## Goals for the Hackathon
+### 1. Integrate with Forte for Compliance Rules check and deploy the application on Binance Chain
+### 2. Use PYUSD as the final rewards token that every user will claim. Native token can be swapped for PYUSD so Users are able to utilize the rewards amounts to pay for real world services using Pay Pal payment checkout. 
+
 # System Components
 ## 1. Secure Evaluation of Eligibility Criteria & Merkle Tree Generation
 A TEE (e.g., Intel SGX, AWS Nitro) securely evaluates user eligibility based on:
