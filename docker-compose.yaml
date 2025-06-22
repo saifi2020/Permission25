@@ -14,6 +14,13 @@ services:
     # environment:
       # - RPC_URL=http://localhost:8545
 
+  frontend:
+    build:
+      context: ./frontend-uiux
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:8080:80"
+
   # builder:
   #   build:
   #     context: ./smart-contract
