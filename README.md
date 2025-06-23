@@ -19,7 +19,9 @@ This is found in [frontend-uiux/](frontend-uiux/).
 It also runs routine health checks to ensure ongoing functionality and liveness.
 
 ## Claim Prover
-The claim prover is used to allow participants to prove their involvement in the campaign and 
+The claim prover is used to allow participants to prove their involvement in the campaign while preserving their privacy via a Noir zero-knowledge proof
+
+This is found in [claim-prover/](claim-prover/).
 
 # _Public readme_
 # Private Onchain Rewards 
