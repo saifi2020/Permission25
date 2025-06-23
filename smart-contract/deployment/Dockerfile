@@ -10,5 +10,4 @@ COPY . .
 EXPOSE 8545
 ENV ANVIL_IP_ADDR="0.0.0.0"
 
-# RUN anvil --fork-url "${RPC_URL}"
-CMD ["anvil", "--load-state", "anvilState.json"]
+ENTRYPOINT ["bash", "entrypoint.sh"]
