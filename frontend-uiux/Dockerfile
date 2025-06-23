@@ -4,13 +4,16 @@ FROM node:20-alpine AS builder
 # Set working directory
 WORKDIR /app
 
-# Copy package files
+# Install python and build tools (only needed for build)
+RUN apk add --no-cache python3 make g++
+
+# Copy package files first (for better caching)
 COPY package*.json ./
 
 # Install all dependencies (including devDependencies for build)
-RUN npm ci
+RUN npm ci --only=production=false
 
-# Copy all files
+# Copy source files
 COPY . .
 
 # Build the application
@@ -23,7 +26,7 @@ FROM nginx:alpine
 RUN apk add --no-cache curl
 
 # Copy nginx configuration
-COPY --from=builder /app/nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy built assets from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
