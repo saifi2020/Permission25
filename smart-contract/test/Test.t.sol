@@ -16,7 +16,9 @@ contract RewardContractTest is Test {
         rewardContract = new RewardContract(0x0, PYUSD_Token);
     }
 
-    function test_one() public {
-
+    function test_fund() public {
+        uint256 campaign_rewards_fund = 10_000 * 10 ** PYUSD_Token.decimals();
+        PYUSD_Token.approve(address(rewardContract), campaign_rewards_fund);
+        rewardContract.fund(campaign_rewards_fund);
     }
 }

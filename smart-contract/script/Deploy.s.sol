@@ -17,7 +17,13 @@ contract Deploy is Script {
 
         PYUSDToken PYUSD_Token = new PYUSDToken();
 
+        // Deploy rewards campaign smart contract
         rewardContract = new RewardContract(0x0, PYUSD_Token);
+
+        // Fund campaign ahead of time so participants can trust it
+        uint256 campaign_rewards_fund = 10_000 * 10 ** PYUSD_Token.decimals();
+        PYUSD_Token.approve(address(rewardContract), campaign_rewards_fund);
+        rewardContract.fund(campaign_rewards_fund);
         vm.stopBroadcast();
     }
 }

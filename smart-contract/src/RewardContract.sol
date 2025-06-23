@@ -2,11 +2,22 @@ pragma solidity 0.8.29;
 
 import "@openzeppelin-contracts/token/ERC20/extensions/ERC4626.sol";
 
+error RewardContract__transferFailed();
+
 contract RewardContract is ERC4626 {
     uint256 rewardValidationKey;
 
     constructor(uint256 _rewardValidationKey, IERC20 _rewardToken) ERC20("rewardPoints", "POINTS") ERC4626(_rewardToken) {
         rewardValidationKey = _rewardValidationKey;
+    }
+
+    function fund(uint256 amount) external {
+        IERC20 token = IERC20(asset());
+        bool transfered = token.transferFrom(msg.sender, address(this), amount);
+
+        if (!transfered) {
+            revert RewardContract__transferFailed();
+        }
     }
 
     function claimRewards(uint256 claim) public {
