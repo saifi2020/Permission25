@@ -47,6 +47,8 @@ Set your contract address:
 KYC_ADDRESS=<deployed_address>
 ```
 
+Update ForeignCalls KYC address in kyc-level.json with KYC_ADDRESS
+
 ---
 
 ### 3. 📜 Create Policies in the Rules Engine

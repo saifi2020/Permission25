@@ -60,8 +60,8 @@ services:
     environment:
       NODE_ENV: development
       # Custom campaigns! Pick whichever you like or add a new one!
-      CAMPAIGN: "/usr/src/app/CampaignTypes/PreknownCampaign.js"
-      # CAMPAIGN: "/usr/src/app/CampaignTypes/Web3CampaignForte.js"
+      # CAMPAIGN: "/usr/src/app/CampaignTypes/PreknownCampaign.js"
+      CAMPAIGN: "/usr/src/app/CampaignTypes/Web3CampaignForte.js"
       # CAMPAIGN: "/usr/src/app/CampaignTypes/Web3CampaignPYUSD.js"
 
     ports:
