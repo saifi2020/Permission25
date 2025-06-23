@@ -15,6 +15,13 @@
       "function": "getKycTimestamp(address)",
       "returnType": "uint256",
       "valuesToPass": "0"
+    },
+    {
+      "name": "freOfacSanctioned",
+      "address": "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
+      "function": "isDenied(address)",
+      "returnType": "bool",
+      "valuesToPass": "0"
     }
   ],
   "Trackers": [],
@@ -32,6 +39,13 @@
       "negativeEffects": ["revert(\"KYC Expired\")"],
       "callingFunction": "transfer(address to, uint256 value)",
       "encodedValues": "address to, uint256 value"
+    },
+    {
+      "condition": "FC:freOfacSanctioned == false",
+      "positiveEffects": [],
+      "negativeEffects": ["revert(\"Sactioned address\")"],
+      "callingFunction": "isDenied(address to)",
+      "encodedValues": "address to"
     }
   ]
 }
