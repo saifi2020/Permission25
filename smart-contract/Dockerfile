@@ -8,6 +8,10 @@ WORKDIR /app
 COPY foundry.toml .
 RUN forge build
 
+# RUN git init
+# RUN forge install OpenZeppelin/openzeppelin-contracts-upgradeable
+# RUN forge install OpenZeppelin/openzeppelin-contracts
+
 # Build and test the source code
 COPY . .
 
