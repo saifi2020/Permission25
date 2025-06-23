@@ -1,13 +1,13 @@
 import { WagmiProvider } from 'wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ConnectKitProvider, getDefaultConfig } from 'connectkit'
+import { ConnectKitProvider } from 'connectkit'
 import { config } from '../lib/wagmi'
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      retry: 0,
+      retry: 1, // Reduce retries for faster feedback
     },
   },
 })
@@ -30,7 +30,8 @@ export function Web3Provider({ children }) {
           options={{
             embedGoogleFonts: true,
             walletConnectName: "Private Onchain Rewards",
-            initialChainId: 56, // BNB Chain
+            initialChainId: 56, // Force BNB Chain
+            enforceSupportedChains: true, // Only allow supported chains
             disclaimer: (
               <>
                 By connecting your wallet, you agree to our{' '}
@@ -42,8 +43,17 @@ export function Web3Provider({ children }) {
                 >
                   Terms of Service
                 </a>
+                <br />
+                <strong>Note:</strong> Only BNB Chain (BSC) is supported. MetaMask recommended.
               </>
             ),
+            // Hide non-EVM wallets
+            hideBalance: false,
+            hideTooltips: false,
+            hideQuestionMarkCTA: true,
+            // Custom wallet order (MetaMask first)
+            walletConnectCTA: 'link',
+            bufferPolyfill: false,
           }}
         >
           {children}

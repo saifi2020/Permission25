@@ -5,7 +5,7 @@ import { Github, Twitter, Linkedin, Globe, MapPin, Calendar, Trophy } from 'luci
 export function About() {
   const team = [
     {
-      name: "Alex Chen",
+      name: "Adrian Self",
       role: "Smart Contract Developer",
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
       github: "alexchen",
@@ -13,7 +13,7 @@ export function About() {
       description: "Blockchain architect with expertise in ZK proofs and DeFi protocols"
     },
     {
-      name: "Sarah Johnson",
+      name: "Jie Peng",
       role: "Frontend Developer",
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
       github: "sarahj",
@@ -21,7 +21,7 @@ export function About() {
       description: "React specialist focused on Web3 UX and wallet integrations"
     },
     {
-      name: "Marcus Williams",
+      name: "Mike C",
       role: "Backend Engineer",
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
       github: "mwilliams",
@@ -29,13 +29,21 @@ export function About() {
       description: "TEE integration expert and distributed systems engineer"
     },
     {
-      name: "Priya Patel",
-      role: "Product Designer",
+      name: "Brandon Shaw",
+      role: "Frontend Developer",
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
       linkedin: "priya-patel",
       website: "priyapatil.design",
       description: "UX/UI designer specializing in privacy-preserving interfaces"
     },
+    {
+      name: "Saif",
+      role: "Developer",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
+      linkedin: "priya-patel",
+      website: "priyapatil.design",
+      description: "UX/UI designer specializing in privacy-preserving interfaces"
+    }
   ]
 
   return (
