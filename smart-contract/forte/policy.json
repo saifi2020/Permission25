@@ -1,0 +1,13 @@
+{
+  "Policy": "Reward Contract Policy",
+  "ForeignCalls": [ ],
+  "Rules": [
+    {
+      "condition": "timestamp > 1751452000",
+      "positiveEffects": [""],
+      "negativeEffects": ["revert(\"Too late for that!\")"],
+      "callingFunction": "claimRewards",
+      "encodedValues": "uint256 timestamp"
+    }
+  ]
+}

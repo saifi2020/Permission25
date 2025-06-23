@@ -41,6 +41,8 @@ contract RewardContract is ERC4626 {
         // Verify whether the rewards have been earned
         require(_isValidClaim(proof, publicInputs), "Invalid Claim");
 
+        // TODO Verify Forte Rules
+
         // If so, distribute rewards in a privacy-preserving manner
         hasClaimed[leaf] = true;
 
