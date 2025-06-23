@@ -24,15 +24,35 @@ app.get('/health', (req, res) => {
 // Generate ZK proof endpoint
 app.post('/api/generate-proof', async (req, res) => {
   try {
-    console.log('🔄 Generating ZK proof with inputs:', req.body.inputs);
+    console.log('🔄 Generating ZK proof for reward claim with inputs:', req.body.inputs);
     
-    const { inputs, circuitPath } = req.body;
+    const { inputs } = req.body;
     
-    // Write inputs to Prover.toml file for Noir
+    // Validate required inputs for reward claiming
+    if (!inputs || !inputs.user_address || !inputs.merkle_value || !inputs.nullifier || 
+        !inputs.merkle_root || !inputs.campaign_address || !inputs.nullifier_hash) {
+      return res.status(400).json({ 
+        error: 'Missing required inputs: user_address, merkle_value, nullifier, merkle_root, campaign_address, nullifier_hash' 
+      })
+    }
+    
+    // Format merkle siblings array (pad with zeros if needed)
+    const siblings = inputs.merkle_siblings || []
+    const paddedSiblings = [...siblings]
+    while (paddedSiblings.length < 16) {
+      paddedSiblings.push("0")
+    }
+    
+    // Write inputs to Prover.toml file for Noir reward claiming circuit
     const proverToml = `
-creator_address = "${inputs.creator_address}"
-campaign_id = "${inputs.campaign_id}"
-secret_key = "${inputs.secret_key}"
+user_address = "${inputs.user_address}"
+merkle_value = "${inputs.merkle_value}"
+nullifier = "${inputs.nullifier}"
+merkle_siblings = [${paddedSiblings.map(s => `"${s}"`).join(', ')}]
+merkle_index = "${inputs.merkle_index || '0'}"
+merkle_root = "${inputs.merkle_root}"
+campaign_address = "${inputs.campaign_address}"
+nullifier_hash = "${inputs.nullifier_hash}"
 `;
     
     const circuitDir = path.join(__dirname, 'noir_circuits');
@@ -66,8 +86,9 @@ secret_key = "${inputs.secret_key}"
             resolve({
               proof: proofArray,
               publicInputs: [
-                inputs.creator_address,
-                inputs.campaign_id
+                inputs.merkle_root,
+                inputs.campaign_address,
+                inputs.nullifier_hash
               ],
               verificationKey: Array.from(crypto.randomBytes(32)) // Placeholder
             });

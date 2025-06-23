@@ -163,50 +163,70 @@ class ZKProofGenerator {
     }
   }
 
+  // Note: Campaign creation doesn't need ZK proofs anymore
+  // This method kept for backward compatibility but not recommended
   async generateCampaignCreationProof(campaignData) {
+    console.warn('⚠️ Campaign creation no longer requires ZK proofs')
+    return {
+      proof: [],
+      publicInputs: [],
+      verificationKey: [],
+      mode: 'deprecated',
+      timestamp: Date.now()
+    }
+  }
+
+  // NEW: Generate ZK proof for reward claiming (this is where ZK is actually needed)
+  async generateRewardClaimProof(claimInputs) {
     try {
       if (!this.isInitialized) {
         await this.initialize()
       }
 
-      console.log('🔄 Generating ZK proof for campaign creation...')
+      console.log('🔄 Generating ZK proof for reward claim...')
 
-      // Prepare circuit inputs
-      const inputs = {
-        creator_address: this.addressToField(campaignData.creatorAddress),
-        campaign_id: this.stringToField(campaignData.campaignId || 'campaign_' + Date.now()),
-        secret_key: this.stringToField(campaignData.secretKey || 'default_secret_123')
-      }
-
-      console.log('📝 Circuit inputs prepared:', inputs)
+      console.log('📝 Reward claim inputs prepared:', claimInputs)
 
       // Choose proof generation method based on config
       const isServiceMode = this.config.mode === 'service' && this.config.claimProverService.enabled
       let proof
 
       if (isServiceMode) {
-        // Use real claim-prover service
-        proof = await generateProofViaService(inputs, this.config)
+        // Use real claim-prover service with Noir circuit
+        proof = await generateProofViaService(claimInputs, this.config)
       } else {
-        // Use mock generation
-        proof = await simulateZKProofGeneration(inputs, this.config)
+        // Use mock generation for development
+        proof = await simulateZKProofGeneration(claimInputs, this.config)
       }
 
-      console.log('✅ ZK proof generated successfully')
+      console.log('✅ ZK proof for reward claim generated successfully')
 
       return {
         proof: proof.proof,
         publicInputs: proof.publicInputs,
         verificationKey: proof.verificationKey,
-        campaignId: inputs.campaign_id,
+        claimData: claimInputs,
         timestamp: Date.now(),
         mode: proof.mode,
-        mockProof: proof.mode === 'mock' // Backward compatibility
+        type: 'reward_claim'
       }
     } catch (error) {
-      console.error('❌ Failed to generate ZK proof:', error)
+      console.error('❌ Failed to generate reward claim ZK proof:', error)
       throw error
     }
+  }
+
+  // Helper method to compute simple hash for nullifiers
+  computeSimpleHash(input) {
+    // Simple hash function for demo purposes
+    // In production, this should match the circuit's hash function
+    let hash = 0
+    for (let i = 0; i < input.length; i++) {
+      const char = input.charCodeAt(i)
+      hash = ((hash << 5) - hash) + char
+      hash = hash & hash // Convert to 32-bit integer
+    }
+    return Math.abs(hash).toString()
   }
 
   async verifyProof(proofData) {
