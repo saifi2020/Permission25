@@ -40,6 +40,8 @@ services:
     build:
       context: ./claim-prover
       dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:8083:8080"
     volumes:
       - verifier_volume:/app/noir_circuits/target
 

@@ -2,12 +2,13 @@ FROM ubuntu
 
 WORKDIR /app
 
-# When you feel like running a long build process, combine these
+# Install system dependencies
 RUN apt update && apt install -y \
     curl \
-    git
-RUN apt install -y \
-    jq
+    git \
+    jq \
+    nodejs \
+    npm
 
 # Set PATH for noir and barretenberg
 ENV PATH="/root/.nargo/bin:/root/.bb:$PATH"
@@ -20,6 +21,20 @@ RUN noirup --version 1.0.0-beta.3
 RUN curl -L https://raw.githubusercontent.com/AztecProtocol/aztec-packages/refs/heads/master/barretenberg/bbup/install | bash
 RUN bbup
 
+# Copy package files
+COPY package*.json ./
+
+# Install Node.js dependencies
+RUN npm install
+
+# Copy all files
 COPY . .
 
-ENTRYPOINT ["bash", "entrypoint.sh"]
+# Build the Noir circuit initially
+RUN cd noir_circuits && nargo build && nargo compile
+
+# Expose the API port
+EXPOSE 8080
+
+# Start the REST API server instead of running entrypoint.sh
+CMD ["npm", "start"]

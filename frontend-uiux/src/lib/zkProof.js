@@ -137,6 +137,8 @@ class ZKProofGenerator {
   async testServiceConnection() {
     try {
       const { baseUrl } = this.config.claimProverService
+      
+      // Test connection using REST API health endpoint
       const response = await fetch(`${baseUrl}/health`, {
         method: 'GET',
         signal: AbortSignal.timeout(5000)
@@ -146,9 +148,16 @@ class ZKProofGenerator {
         throw new Error(`Service health check failed: ${response.status}`)
       }
       
-      console.log('✅ Claim-prover service connection verified')
+      const result = await response.json()
+      
+      // Check if we got a valid health response
+      if (!result.status || result.status !== 'healthy') {
+        throw new Error('Invalid health response from service')
+      }
+      
+      console.log('✅ ZK Proof service connection verified:', result.service)
     } catch (error) {
-      console.warn('⚠️ Claim-prover service connection failed, falling back to mock mode')
+      console.warn('⚠️ ZK Proof service connection failed, falling back to mock mode')
       this.config.claimProverService.enabled = false
       throw error
     }

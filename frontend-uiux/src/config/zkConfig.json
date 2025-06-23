@@ -1,9 +1,9 @@
 {
   "zkProof": {
-    "mode": "mock",
+    "mode": "service",
     "claimProverService": {
-      "enabled": false,
-      "baseUrl": "http://localhost:8080",
+      "enabled": true,
+      "baseUrl": "http://127.0.0.1:8083",
       "endpoints": {
         "generateProof": "/api/generate-proof",
         "verifyProof": "/api/verify-proof",
