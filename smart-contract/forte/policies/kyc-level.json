@@ -1,0 +1,37 @@
+{
+  "Policy": "KYC Policy",
+  "PolicyType": "open",
+  "ForeignCalls": [
+    {
+      "name": "getKycLevel",
+      "address": "0x809d550fca64d94Bd9F66E60752A544199cfAC3D",
+      "function": "getKycLevel(address)",
+      "returnType": "uint256",
+      "valuesToPass": "0"
+    },
+    {
+      "name": "getKycTimestamp",
+      "address": "0x809d550fca64d94Bd9F66E60752A544199cfAC3D",
+      "function": "getKycTimestamp(address)",
+      "returnType": "uint256",
+      "valuesToPass": "0"
+    }
+  ],
+  "Trackers": [],
+  "Rules": [
+    {
+      "condition": "FC:getKycLevel > 2",
+      "positiveEffects": [],
+      "negativeEffects": ["revert(\"Insufficient KYC Level\")"],
+      "callingFunction": "transfer(address to, uint256 value)",
+      "encodedValues": "address to, uint256 value"
+    },
+    {
+      "condition": "FC:getKycTimestamp > 1735689600 && FC:getKycTimestamp != 0",
+      "positiveEffects": ["emit KYC is Fresh"],
+      "negativeEffects": ["revert(\"KYC Expired\")"],
+      "callingFunction": "transfer(address to, uint256 value)",
+      "encodedValues": "address to, uint256 value"
+    }
+  ]
+}

@@ -139,8 +139,8 @@ async function main() {
     // injectModifiers - npx injectModifiers <policyJSONFilePath> <newModifierFileName> <sourceContractFile>
     // npx tsx index.ts injectModifiers policy.json src/RulesEngineIntegration src/ExampleContract.sol
     const policyJSONFile = process.argv[3] || "policy.json";
-    const newModifierFileName = process.argv[4] || "src/RulesEngineIntegration.sol";
-    const sourceContractFile = process.argv[5] || "src/ExampleContract.sol";
+    const newModifierFileName = process.argv[4] || "../src/RulesEngineIntegration.sol";
+    const sourceContractFile = process.argv[5] || "../src/Transact.sol";
     await injectModifiers(policyJSONFile, newModifierFileName, sourceContractFile);
   } else if (process.argv[2] == "applyPolicy") {
     // applyPolicy - npx applyPolicy <policyId> <address>
