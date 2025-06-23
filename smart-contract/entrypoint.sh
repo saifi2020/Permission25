@@ -13,10 +13,11 @@ forge test
 # Wait for the Anvil node to be ready
 sleep 1
 
+# Verify account
 cast balance $ANVIL_ADDRESS --rpc-url $ANVIL_RPC_URL
-
 cast wallet address --private-key $ANVIL_PK
 
+# Verify Forte deployment from anvilState.json
 export FORTE_ADDR=0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6
 cast balance $FORTE_ADDR --rpc-url $ANVIL_RPC_URL
 cast code $FORTE_ADDR --rpc-url $ANVIL_RPC_URL

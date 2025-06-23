@@ -1,9 +1,16 @@
 pragma solidity 0.8.29;
 
-contract RewardContract {
+import "openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol";
+
+contract RewardContract is ERC4626{
     uint256 rewardValidationKey;
-    constructor(uint256 _rewardValidationKey) {
+
+    constructor(uint256 _rewardValidationKey, address _rewardToken) {
+        __ERC20_init("rewardPoints", "POINTS");
+        __ERC4626_init(_rewardToken);
+
         rewardValidationKey = _rewardValidationKey;
+
     }
 
     function claimRewards(uint256 claim) public {
