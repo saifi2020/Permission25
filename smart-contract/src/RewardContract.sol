@@ -1,4 +1,5 @@
 pragma solidity 0.8.29;
+import "src/RewardsRulesEngineIntegration.sol";
 
 import "@openzeppelin-contracts/token/ERC20/extensions/ERC4626.sol";
 
@@ -7,7 +8,7 @@ error RewardContract__campaignNotFinalized();
 error RewardContract__campaignAlreadyFinalized();
 error RewardContract__alreadyClaimed();
 
-contract RewardContract is ERC4626 {
+contract RewardContract is RulesEngineClientCustom, ERC4626 {
     uint256 rewardValidationKey;
 
     bool finalized;
@@ -50,7 +51,7 @@ contract RewardContract is ERC4626 {
         redeem(points, targetAddress, address(this));
     }
     
-    function setRewards(uint256 rewards, uint256 _totalPoints) public {
+    function setRewards(uint256 rewards, uint256 _totalPoints) public checkRulesBeforesetRewards(rewards, _totalPoints) {
         // Rewards may be set only once
         if (finalized) { revert RewardContract__campaignAlreadyFinalized(); }
 
@@ -71,6 +72,4 @@ contract RewardContract is ERC4626 {
         // Checks claim
         return true;
     }
-
-    
 }
