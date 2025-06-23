@@ -9,12 +9,12 @@ contract KYC is AccessControl {
 
     // Mapping to store KYC levels (0-3)
     mapping(address => uint256) private kycLevels;
-    // mapping to store boolean version of kyc check
-    mapping(address => bool) private isKycd;
+
+    // Mapping to store the timestamp when KYC was last set
+    mapping(address => uint256) private kycTimestamps;
 
     // Events
-    event KYCLevelSet(address indexed user, uint256 level);
-    event KYCToggled(address indexed user, bool hasKyc);
+    event KYCLevelSet(address indexed user, uint256 level, uint256 timestamp);
 
     constructor() {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
@@ -28,15 +28,8 @@ contract KYC is AccessControl {
     ) external onlyRole(KYC_ADMIN_ROLE) {
         require(level <= 3, "Invalid KYC level");
         kycLevels[user] = level;
-        emit KYCLevelSet(user, level);
-    }
-
-    function setKycBool(
-        address user,
-        bool hasKyc
-    ) external onlyRole(KYC_ADMIN_ROLE) {
-        isKycd[user] = hasKyc;
-        emit KYCToggled(user, hasKyc);
+        kycTimestamps[user] = block.timestamp;
+        emit KYCLevelSet(user, level, block.timestamp);
     }
 
     // Function to get KYC level for an address
@@ -44,7 +37,8 @@ contract KYC is AccessControl {
         return kycLevels[user];
     }
 
-    function getKycBool(address user) external view returns (bool) {
-        return isKycd[user];
+    // Function to get KYC timestamp for an address
+    function getKycTimestamp(address user) external view returns (uint256) {
+        return kycTimestamps[user];
     }
 }
