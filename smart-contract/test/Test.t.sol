@@ -21,4 +21,33 @@ contract RewardContractTest is Test {
         PYUSD_Token.approve(address(rewardContract), campaign_rewards_fund);
         rewardContract.fund(campaign_rewards_fund);
     }
+
+
+    function test_setreward() public {
+        // fund
+        uint256 campaign_rewards_fund = 10_000 * 10 ** PYUSD_Token.decimals();
+        PYUSD_Token.approve(address(rewardContract), campaign_rewards_fund);
+        rewardContract.fund(campaign_rewards_fund);
+
+        // set rewards
+        rewardContract.setRewards(0x0, 1000);
+    }
+
+    function test_claim() public {
+        // fund
+        uint256 campaign_rewards_fund = 10_000 * 10 ** PYUSD_Token.decimals();
+        PYUSD_Token.approve(address(rewardContract), campaign_rewards_fund);
+        rewardContract.fund(campaign_rewards_fund);
+
+        // set rewards
+        rewardContract.setRewards(0x0, 1000);
+
+        // Attempt to claim rewards
+        bytes memory proof = hex"01020304";
+        bytes32[] memory publicInputs = new bytes32[](3);
+        publicInputs[0] = 0xabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabca; // leaf
+        publicInputs[1] = bytes32(uint256(123)); // points
+        publicInputs[2] = bytes32(uint256(uint160(0x123deadbeef))); // target address
+        rewardContract.claimRewards(proof, publicInputs);
+    }
 }

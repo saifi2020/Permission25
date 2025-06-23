@@ -15,6 +15,7 @@ contract Deploy is Script {
     function run() external {
         vm.startBroadcast();
 
+        // Deploy PYUSD Stablecoin for rewards campaign
         PYUSDToken PYUSD_Token = new PYUSDToken();
 
         // Deploy rewards campaign smart contract
@@ -24,6 +25,18 @@ contract Deploy is Script {
         uint256 campaign_rewards_fund = 10_000 * 10 ** PYUSD_Token.decimals();
         PYUSD_Token.approve(address(rewardContract), campaign_rewards_fund);
         rewardContract.fund(campaign_rewards_fund);
+
+        // Set rewards with zk proof of correspondence to established campaign criteria
+        rewardContract.setRewards(0x0, 1000);
+
+        // Attempt to claim rewards
+        bytes memory proof = hex"01020304";
+        bytes32[] memory publicInputs = new bytes32[](3);
+        publicInputs[0] = 0xabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabca; // leaf
+        publicInputs[1] = bytes32(uint256(123)); // points
+        publicInputs[2] = bytes32(uint256(uint160(0x123deadbeef))); // target address
+        rewardContract.claimRewards(proof, publicInputs);
+
         vm.stopBroadcast();
     }
 }
