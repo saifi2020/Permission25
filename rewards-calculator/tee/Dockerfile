@@ -32,6 +32,6 @@ RUN ./build.sh
 #   external.sock
 #   guest.sock
 
-# Run the simulator
+# Run the TEE
 ENTRYPOINT [ "./dstack-simulator" ]
 

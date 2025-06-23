@@ -8,6 +8,7 @@ RUN npm install @thrackle-io/forte-rules-engine-sdk
 
 # Copy Forte rules to the build context
 COPY . .
+RUN cd forte && npm install
 RUN npx tsx forte/injectModifiers.ts
 
 # # # # # # # # # # # # # #
@@ -26,6 +27,7 @@ COPY . .
 # Copy Forte output to the final image
 # COPY --from=node-builder /app/node_modules/@thrackle-io/forte-rules-engine ./node_modules/@thrackle-io/forte-rules-engine
 COPY --from=node-builder /app/node_modules ./node_modules/
+COPY --from=node-builder /app/forte/node_modules ./forte/node_modules/
 COPY --from=node-builder /app/src/RulesEngineClientCustom.sol ./src/RulesEngineClientCustom.sol
 COPY --from=node-builder /app/src/RewardContract.sol ./src/RewardContract.sol
 
