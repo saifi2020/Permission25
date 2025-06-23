@@ -6,7 +6,7 @@ import { WALLETCONNECT_PROJECT_ID } from './config'
 // Only BNB Chain
 const chains = [bsc]
 
-// Minimal, reliable config
+// Minimal, reliable config with SSR support
 export const config = createConfig({
   chains,
   connectors: [
@@ -21,6 +21,7 @@ export const config = createConfig({
   transports: {
     [bsc.id]: http('https://bsc-dataseed.binance.org'),
   },
+  ssr: true, // Enable SSR support to prevent hydration mismatches
 })
 
 export const defaultChainId = 56

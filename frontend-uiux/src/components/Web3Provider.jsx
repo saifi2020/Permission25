@@ -2,20 +2,35 @@ import { WagmiProvider } from 'wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ConnectKitProvider } from 'connectkit'
 import { config } from '../lib/wagmi'
+import { ClientOnly } from './ClientOnly'
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: 1, // Reduce retries for faster feedback
-    },
-  },
-})
+// Create QueryClient with configuration optimized for wallet persistence
+let queryClient
 
-export function Web3Provider({ children }) {
+function getQueryClient() {
+  if (!queryClient) {
+    queryClient = new QueryClient({
+      defaultOptions: {
+        queries: {
+          refetchOnWindowFocus: false,
+          refetchOnMount: true, // Allow refetch on mount for wallet state
+          refetchOnReconnect: true, // Allow refetch on reconnect
+          retry: 1, // Allow limited retries for wallet connection
+          staleTime: 5000, // Shorter stale time for wallet state
+        },
+        mutations: {
+          retry: false,
+        },
+      },
+    })
+  }
+  return queryClient
+}
+
+function Web3ProviderInner({ children }) {
   return (
     <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={getQueryClient()}>
         <ConnectKitProvider
           theme="auto"
           mode="light"
@@ -47,18 +62,27 @@ export function Web3Provider({ children }) {
                 <strong>Note:</strong> Only BNB Chain (BSC) is supported. MetaMask recommended.
               </>
             ),
-            // Hide non-EVM wallets
+            // Wallet connection options
             hideBalance: false,
             hideTooltips: false,
             hideQuestionMarkCTA: true,
-            // Custom wallet order (MetaMask first)
             walletConnectCTA: 'link',
             bufferPolyfill: false,
+            // Reduce motion for better performance
+            reducedMotion: true,
           }}
         >
           {children}
         </ConnectKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
+  )
+}
+
+export function Web3Provider({ children }) {
+  return (
+    <ClientOnly fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <Web3ProviderInner>{children}</Web3ProviderInner>
+    </ClientOnly>
   )
 }
