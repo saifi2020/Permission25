@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useAccount } from 'wagmi'
+import { ConnectKitButton } from 'connectkit'
 import {
   Dialog,
   DialogContent,
@@ -13,6 +15,7 @@ import { Label } from './ui/label'
 import { Textarea } from './ui/textarea'
 
 export function NewCampaignDialog({ open, onOpenChange }) {
+  const { isConnected } = useAccount()
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -39,13 +42,26 @@ export function NewCampaignDialog({ open, onOpenChange }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[525px]">
-        <form onSubmit={handleSubmit}>
-          <DialogHeader>
-            <DialogTitle>Create New Campaign</DialogTitle>
-            <DialogDescription>
-              Set up a private reward distribution campaign with custom eligibility criteria.
-            </DialogDescription>
-          </DialogHeader>
+        {!isConnected ? (
+          <div className="text-center py-8">
+            <DialogHeader>
+              <DialogTitle>Connect Wallet</DialogTitle>
+              <DialogDescription>
+                Please connect your wallet to create a new campaign.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="mt-6">
+              <ConnectKitButton />
+            </div>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <DialogHeader>
+              <DialogTitle>Create New Campaign</DialogTitle>
+              <DialogDescription>
+                Set up a private reward distribution campaign with custom eligibility criteria.
+              </DialogDescription>
+            </DialogHeader>
           
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
@@ -130,6 +146,7 @@ export function NewCampaignDialog({ open, onOpenChange }) {
             <Button type="submit">Create Campaign</Button>
           </DialogFooter>
         </form>
+        )}
       </DialogContent>
     </Dialog>
   )

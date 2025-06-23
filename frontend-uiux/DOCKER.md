@@ -17,8 +17,8 @@ docker run -p 80:80 private-rewards-frontend
 ```bash
 docker run -p 80:80 \
   -e VITE_API_URL=https://api.your-domain.com \
-  -e VITE_CHAIN_ID=137 \
-  -e VITE_RPC_URL=https://polygon-rpc.com \
+  -e VITE_CHAIN_ID=56 \
+  -e VITE_RPC_URL=https://bsc-dataseed.binance.org \
   -e VITE_FACTORY_CONTRACT_ADDRESS=0x123... \
   -e VITE_VERIFIER_CONTRACT_ADDRESS=0x456... \
   -e VITE_FORTE_API_URL=https://api.forte.io \
@@ -39,8 +39,8 @@ docker run -p 80:80 --env-file .env private-rewards-frontend
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
 | `VITE_API_URL` | Backend API endpoint | `http://localhost:3000/api` | Yes |
-| `VITE_CHAIN_ID` | Blockchain network ID | `1` | Yes |
-| `VITE_RPC_URL` | Blockchain RPC endpoint | `https://eth-mainnet.g.alchemy.com/v2/your-api-key` | Yes |
+| `VITE_CHAIN_ID` | Blockchain network ID | `56` | Yes |
+| `VITE_RPC_URL` | Blockchain RPC endpoint | `https://bsc-dataseed.binance.org` | Yes |
 | `VITE_FACTORY_CONTRACT_ADDRESS` | Campaign Factory contract address | `0x0000...` | Yes |
 | `VITE_VERIFIER_CONTRACT_ADDRESS` | ZK Verifier contract address | `0x0000...` | Yes |
 | `VITE_FORTE_API_URL` | Forte compliance API endpoint | `https://api.forte.io` | Yes |
