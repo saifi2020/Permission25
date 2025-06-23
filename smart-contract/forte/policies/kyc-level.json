@@ -4,14 +4,14 @@
   "ForeignCalls": [
     {
       "name": "getKycLevel",
-      "address": "0x809d550fca64d94Bd9F66E60752A544199cfAC3D",
+      "address": "0x7bc06c482DEAd17c0e297aFbC32f6e63d3846650",
       "function": "getKycLevel(address)",
       "returnType": "uint256",
       "valuesToPass": "0"
     },
     {
       "name": "getKycTimestamp",
-      "address": "0x809d550fca64d94Bd9F66E60752A544199cfAC3D",
+      "address": "0x7bc06c482DEAd17c0e297aFbC32f6e63d3846650",
       "function": "getKycTimestamp(address)",
       "returnType": "uint256",
       "valuesToPass": "0"
