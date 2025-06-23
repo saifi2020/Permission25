@@ -43,5 +43,30 @@ services:
     volumes:
       - verifier_volume:/app/noir_circuits/target
 
+  tee-host:
+    build:
+      context: ./rewards-calculator/tee
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    volumes:
+      - dstack-sockets:/app/src/dstack/sdk/simulator/
+
+  tee-client:
+    build:
+      context: ./rewards-calculator/enclave_app
+      target: dev
+    environment:
+      NODE_ENV: development
+      # Custom campaigns! Pick whichever you like or add a new one!
+      CAMPAIGN: "/usr/src/app/CampaignTypes/PreknownCampaign.js"
+      # CAMPAIGN: "/usr/src/app/CampaignTypes/Web3CampaignForte.js"
+      # CAMPAIGN: "/usr/src/app/CampaignTypes/Web3CampaignPYUSD.js"
+
+    ports:
+      - 127.0.0.1:3000:3000
+    volumes:
+      - dstack-sockets:/var/run/
+
 volumes:
   verifier_volume:
+  dstack-sockets:

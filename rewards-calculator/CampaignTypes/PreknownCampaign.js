@@ -1,1 +1,0 @@
-// We already know who should get the rewards, so we can just return the list of addresses

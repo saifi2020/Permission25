@@ -1,1 +1,0 @@
-# A Dockerfile which encapsulates the calculation of rewards to be run in a secure environment
