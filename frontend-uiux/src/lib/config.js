@@ -18,7 +18,7 @@ const getConfig = () => {
     VITE_IPFS_GATEWAY: import.meta.env.VITE_IPFS_GATEWAY || 'https://gateway.pinata.cloud/ipfs/',
     VITE_TEE_ENDPOINT: import.meta.env.VITE_TEE_ENDPOINT || 'http://localhost:8080',
     VITE_ENABLE_TESTNET: import.meta.env.VITE_ENABLE_TESTNET === 'true' || false,
-    VITE_WALLETCONNECT_PROJECT_ID: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || '2fac6d322c1f39c27f18efa0c7a6a0f2',
+    VITE_WALLETCONNECT_PROJECT_ID: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || '27ee5e438ac091955299076b4d547aa6',
   }
 }
 
