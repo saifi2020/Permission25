@@ -1,6 +1,8 @@
 # _Dev Readme - Public Readme below_
 
 ## Usage
+Please clone the repository, then `git submodule update --init --recursive` to ensure that you have all dependencies downloaded.
+
 `docker compose up --build` will launch the anvil localnet, the Dapp frontend, and the smart contract builder & tester.
 
 ## Smart Contracts
