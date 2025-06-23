@@ -1,0 +1,26 @@
+{
+  "zkProof": {
+    "mode": "mock",
+    "claimProverService": {
+      "enabled": false,
+      "baseUrl": "http://localhost:8080",
+      "endpoints": {
+        "generateProof": "/api/generate-proof",
+        "verifyProof": "/api/verify-proof",
+        "compileCircuit": "/api/compile-circuit"
+      },
+      "circuitPath": "../claim-prover/noir_circuits/target/noir_circuits.json",
+      "timeout": 30000
+    },
+    "mockSettings": {
+      "generationDelay": 2000,
+      "verificationDelay": 1000,
+      "enableLogs": true
+    },
+    "productionSettings": {
+      "useWebWorker": true,
+      "chunkSize": 1024,
+      "enableProgressCallback": true
+    }
+  }
+} 

@@ -39,8 +39,9 @@ export function Landing({ onNewCampaign }) {
               Your users stay anonymous while you maintain complete compliance.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" onClick={onNewCampaign}>
-                Launch Campaign
+              <Button size="lg" onClick={onNewCampaign} className="flex items-center gap-2">
+                <Shield className="h-4 w-4" />
+                Launch Campaign with ZK Proof
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button size="lg" variant="outline" asChild>
@@ -113,8 +114,9 @@ export function Landing({ onNewCampaign }) {
           <p className="text-lg text-muted-foreground">
             Join the future of private, compliant, and scalable onchain rewards
           </p>
-          <Button size="lg" onClick={onNewCampaign}>
-            Create Your First Campaign
+          <Button size="lg" onClick={onNewCampaign} className="flex items-center gap-2">
+            <Shield className="h-4 w-4" />
+            Create Your First Campaign with ZK Proof
             <ChevronRight className="ml-2 h-4 w-4" />
           </Button>
         </div>

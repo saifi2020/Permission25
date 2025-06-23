@@ -51,7 +51,7 @@ interface PolicyConfig {
     Trackers: Tracker[];
     Rules: Rule[];
 }
-const configPath = "forte/policy.json"
+const configPath = "forte/policies/reward-limit.json"
 const configData = fs.readFileSync(configPath, 'utf-8');
 const policyConfig: PolicyConfig = JSON.parse(configData);
 
@@ -97,4 +97,4 @@ for (const match of funcMatches) {
 console.log("modifiedData b", modifiedData);
 /* End Parser Test */
 
-policyModifierGeneration("forte/policy.json", modifiersPath, [yourContract]);
+policyModifierGeneration("forte/policies/reward-limit.json", modifiersPath, [yourContract]);
