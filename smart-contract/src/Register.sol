@@ -3,11 +3,10 @@ pragma solidity ^0.8.13;
 import "../src/KYCRulesEngineIntegration.sol";
 
 /**
- * An example contract that does nothing.
- * This contract is used to demonstrate the use of the `transfer` function.
+ * An simlutates a user registering / getting KYC'd.
  */
 
-contract Transact is RulesEngineClientCustom {
+contract Register is RulesEngineClientCustom {
     function transfer(address to, uint256 value) public checkRulesBeforetransfer(to, value) returns (bool) {
         // this function is purposefully empty
         return true;

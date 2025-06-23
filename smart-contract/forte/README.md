@@ -21,17 +21,17 @@ This guide provides a step-by-step process for integrating, deploying, and testi
 
 #### Inject modifiers into contracts:
 ```bash
-npx tsx index.ts injectModifiers ./policies/kyc-level.json ../src/KYCRulesEngineIntegration.sol ../src/Transact.sol
+npx tsx index.ts injectModifiers ./policies/kyc-level.json ../src/KYCRulesEngineIntegration.sol ../src/Register.sol
 ```
 
-#### Deploy the `Transact` contract:
+#### Deploy the `Register` contract:
 ```bash
-forge script ../script/Transact.s.sol --ffi --broadcast -vvv --non-interactive --rpc-url $RPC_URL --private-key $PRIV_KEY
+forge script ../script/Register.s.sol --ffi --broadcast -vvv --non-interactive --rpc-url $RPC_URL --private-key $PRIV_KEY
 ```
 
 Set your contract address:
 ```bash
-TRANSACT_ADDRESS=<deployed_address>
+REGISTER_ADDRESS=<deployed_address>
 ```
 
 ---
@@ -71,16 +71,16 @@ KYC_POLICY_ID=<returned_policy_id>
 
 ---
 
-### 4. 🔗 Link Rules Engine to Transact Contract
+### 4. 🔗 Link Rules Engine to Register Contract
 
 #### Set the Rules Engine address:
 ```bash
-cast send $TRANSACT_ADDRESS "setRulesEngineAddress(address)" $RULES_ENGINE_ADDRESS --rpc-url $RPC_URL --private-key $PRIV_KEY
+cast send $REGISTER_ADDRESS "setRulesEngineAddress(address)" $RULES_ENGINE_ADDRESS --rpc-url $RPC_URL --private-key $PRIV_KEY
 ```
 
 #### Verify the address was set:
 ```bash
-cast call $TRANSACT_ADDRESS "rulesEngineAddress()(address)" --rpc-url $RPC_URL
+cast call $REGISTER_ADDRESS "rulesEngineAddress()(address)" --rpc-url $RPC_URL
 ```
 
 ---
@@ -88,7 +88,7 @@ cast call $TRANSACT_ADDRESS "rulesEngineAddress()(address)" --rpc-url $RPC_URL
 ### 5. 👤 Set Calling Contract Admin
 
 ```bash
-cast send $TRANSACT_ADDRESS "setCallingContractAdmin(address)" $USER_ADDRESS_1 --rpc-url $RPC_URL --private-key $PRIV_KEY
+cast send $REGISTER_ADDRESS "setCallingContractAdmin(address)" $USER_ADDRESS_1 --rpc-url $RPC_URL --private-key $PRIV_KEY
 ```
 
 ---
@@ -117,7 +117,7 @@ cast call $FRE_OFAC_SACTIONS_CONTRACT "isDenied(address)(bool)" $USER_ADDRESS_3 
 
 ---
 
-## ✅ KYC + Transaction Flow
+## ✅ KYC + Register Flow
 
 ### Set KYC Level to 3
 ```bash
@@ -136,16 +136,16 @@ cast call $KYC_CONTRACT "getKycTimestamp(address)(uint256)" $USER_ADDRESS_1 --rp
 
 ---
 
-## 💸 Example Transactions
+## 💸 Example Registers
 
-### ✅ Successful Transaction (KYC'd User)
+### ✅ Successful register (KYC'd User)
 ```bash
-cast send $TRANSACT_ADDRESS "transfer(address,uint256)" $USER_ADDRESS_1 40000 --rpc-url $RPC_URL --private-key $PRIV_KEY
+cast send $REGISTER_ADDRESS "transfer(address,uint256)" $USER_ADDRESS_1 40000 --rpc-url $RPC_URL --private-key $PRIV_KEY
 ```
 
-### ❌ Failed Transaction (User Not KYC'd)
+### ❌ Failed register (User Not KYC'd)
 ```bash
-cast send $TRANSACT_ADDRESS "transfer(address,uint256)" $USER_ADDRESS_2 40000 --rpc-url $RPC_URL --private-key $PRIV_KEY
+cast send $REGISTER_ADDRESS "transfer(address,uint256)" $USER_ADDRESS_2 40000 --rpc-url $RPC_URL --private-key $PRIV_KEY
 ```
 
 ---

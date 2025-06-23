@@ -3,7 +3,7 @@
   "ForeignCalls": [],
   "Rules": [
     {
-      "condition": "value > 1",
+      "condition": "value > 1e9",
       "positiveEffects": ["emit TransferSuccessful"],
       "negativeEffects": ["revert(\"Insuffecient funds - Failed \")"],
       "callingFunction": "transfer(address to, uint256 value)",

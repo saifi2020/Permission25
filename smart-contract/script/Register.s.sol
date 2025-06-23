@@ -2,17 +2,17 @@
 pragma solidity ^0.8.13;
 
 import {Script, console} from "forge-std/Script.sol";
-import {Transact} from "../src/Transact.sol";
+import {Register} from "../src/Register.sol";
 
 contract ExampleUserScript is Script {
-    Transact public example;
+    Register public example;
 
     function setUp() public {}
 
     function run() public {
         vm.startBroadcast();
 
-        example = new Transact();
+        example = new Register();
 
         vm.stopBroadcast();
     }
