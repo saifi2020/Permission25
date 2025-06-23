@@ -1,0 +1,6 @@
+// A zero-knowledge proof that the claimant deserves some rewards
+// To be verified by claimRewards() onchain in the ParticipationChecker contract
+
+fn main(){
+    assert(1==1);
+}

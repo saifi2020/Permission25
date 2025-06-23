@@ -20,6 +20,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "127.0.0.1:8080:80"
+    depends_on:
+      - prover
+    volumes:
+      - verifier_volume:/app/noir_circuits/target
 
   builder:
     build:
@@ -28,3 +32,16 @@ services:
     # Since we also deploy in builder, for now
     depends_on:
       - anvil
+      - prover
+    volumes:
+      - verifier_volume:/app/noir_circuits/target
+
+  prover:
+    build:
+      context: ./claim-prover
+      dockerfile: Dockerfile
+    volumes:
+      - verifier_volume:/app/noir_circuits/target
+
+volumes:
+  verifier_volume:

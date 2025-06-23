@@ -25,6 +25,7 @@ contract RewardContract is ERC4626 {
         require(_isValidClaim(claim), "Invalid Claim");
         // if so, give rewards
     }
+    
     function setRewards(uint256 rewards) public {
         require(_isValidRewards(rewards), "Invalid Rewards");
     }
