@@ -1,6 +1,6 @@
 pragma solidity ^0.8.29;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin-contracts/token/ERC20/ERC20.sol";
 
 contract PYUSDToken is ERC20 {
     constructor() ERC20("PayPal USD", "PYUSD") {

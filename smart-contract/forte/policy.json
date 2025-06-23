@@ -1,13 +1,13 @@
 {
   "Policy": "Reward Contract Policy",
-  "ForeignCalls": [ ],
+  "ForeignCalls": [],
   "Rules": [
     {
-      "condition": "timestamp > 1751452000",
-      "positiveEffects": [""],
-      "negativeEffects": ["revert(\"Too late for that!\")"],
-      "callingFunction": "claimRewards",
-      "encodedValues": "uint256 timestamp"
+      "condition": "value > 10000 AND value <= 50000",
+      "positiveEffects": ["emit TransferSuccessful"],
+      "negativeEffects": ["revert(\"Insuffecient funds - Failed \")"],
+      "callingFunction": "transfer(address to, uint256 value)",
+      "encodedValues": "address to, uint256 value"
     }
   ]
 }
