@@ -4,14 +4,14 @@
   "ForeignCalls": [
     {
       "name": "getKycLevel",
-      "address": "0x7bc06c482DEAd17c0e297aFbC32f6e63d3846650",
+      "address": "0xf953b3A269d80e3eB0F2947630Da976B896A8C5b",
       "function": "getKycLevel(address)",
       "returnType": "uint256",
       "valuesToPass": "0"
     },
     {
       "name": "getKycTimestamp",
-      "address": "0x7bc06c482DEAd17c0e297aFbC32f6e63d3846650",
+      "address": "0xf953b3A269d80e3eB0F2947630Da976B896A8C5b",
       "function": "getKycTimestamp(address)",
       "returnType": "uint256",
       "valuesToPass": "0"
@@ -36,7 +36,7 @@
     {
       "condition": "FC:getKycTimestamp > 1735689600 && FC:getKycTimestamp != 0",
       "positiveEffects": ["emit KYC is Fresh"],
-      "negativeEffects": ["revert(\"KYC Expired\")"],
+      "negativeEffects": ["revert(\"KYC Outdated\")"],
       "callingFunction": "transfer(address to, uint256 value)",
       "encodedValues": "address to, uint256 value"
     },

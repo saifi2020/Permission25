@@ -1,13 +1,20 @@
 {
   "Policy": "Reward Contract Policy",
+  "Trackers": [
+    {
+      "name": "registerCount",
+      "type": "uint256",
+      "initialValue": 0
+    }
+  ],
   "ForeignCalls": [],
   "Rules": [
     {
-      "condition": "value > 1e9",
-      "positiveEffects": ["emit TransferSuccessful"],
-      "negativeEffects": ["revert(\"Insuffecient funds - Failed \")"],
-      "callingFunction": "transfer(address to, uint256 value)",
-      "encodedValues": "address to, uint256 value"
+      "condition": "TRU:registerCount < 10",
+      "positiveEffects": ["TRU:registerCount += 1"],
+      "negativeEffects": ["revert(\"Max Register count\")"],
+      "callingFunction": "transfer(address recipient, uint256 amount)",
+      "encodedValues": "address recipient, uint256 amount"
     }
   ]
 }

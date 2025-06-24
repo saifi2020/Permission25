@@ -2,6 +2,14 @@
 
 This guide provides a step-by-step process for integrating, deploying, and testing smart contracts using the **Forte Rules Engine (FRE)** in a local **Anvil** development environment with the **Forte Rules Engine SDK**.
 
+## ⚙️ Rules created
+
+- KYC level > 2
+- KYC'd after Jan 1st 2025
+- Not FRE and OFAC listens
+- User count hitting register < 100
+
+
 ---
 
 ## 📦 Prerequisites
@@ -12,6 +20,12 @@ This guide provides a step-by-step process for integrating, deploying, and testi
 - RPC URL and Private Key for transaction broadcasting
 - Forte Rules Engine SDK
 - `anvilState.json` file with predeployed FRE & OFAC contract
+
+**FOR BNB**
+- Use BNB configs that are found in .env.sample
+- Remove ForeignCalls **freOfacSanctioned** and Rules **FC:freOfacSanctioned == false** from ./policies/kyc.json
+- Forte Rules Engine SDK: 0xdf1e7dc43e4f56a21780bd2cb9d9eca9912eac96
+
 
 ---
 
