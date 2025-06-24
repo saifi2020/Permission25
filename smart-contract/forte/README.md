@@ -15,7 +15,7 @@ Rules engine access: 0xdf1e7dc43e4f56a21780bd2cb9d9eca9912eac96
 
 - KYC level > 2
 - KYC'd after Jan 1st 2025
-- Not FRE and OFAC listed
+- Not FRE and OFAC listed (ONLY FOR LOCAL ANVIL)
 - User count hitting register < 10
 
 ## Contracts created
