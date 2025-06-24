@@ -48,7 +48,7 @@ Rules engine access: 0xdf1e7dc43e4f56a21780bd2cb9d9eca9912eac96
 
 #### Inject modifiers into contracts:
 ```bash
-npx tsx index.ts injectModifiers ./policies/kyc-level.json ../src/KYCRulesEngineIntegration.sol ../src/Register.sol
+npx tsx index.ts injectModifiers ./policies/kyc.json ../src/KYCRulesEngineIntegration.sol ../src/Register.sol
 ```
 
 #### Deploy the `Register` contract:
@@ -74,7 +74,7 @@ Set your contract address:
 KYC_ADDRESS=<deployed_address>
 ```
 
-Update ForeignCalls KYC address in kyc-level.json with KYC_ADDRESS
+Update ForeignCalls KYC address in kyc.json with KYC_ADDRESS
 
 ---
 
@@ -90,7 +90,7 @@ REWARD_POLICY_ID=<returned_policy_id>
 
 #### Create the KYC Level Policy:
 ```bash
-npx tsx index.ts setupPolicy policies/kyc-level.json
+npx tsx index.ts setupPolicy policies/kyc.json
 ```
 ```bash
 KYC_POLICY_ID=<returned_policy_id>
