@@ -1,18 +1,30 @@
-# ⚙️ Forte Rules Engine – Local Development Guide with Anvil
+# Forte demo
 
 This guide provides a step-by-step process for integrating, deploying, and testing smart contracts using the **Forte Rules Engine (FRE)** in a local **Anvil** development environment with the **Forte Rules Engine SDK**.
 
-## ⚙️ Rules created
+Also deployed and tested on **BNB**
+Register contract: 0xBA1178B2BbB515375dF4142cD66e7FD053Ff1Fd4
+KYC contract: 0x2726d390b1DAEe86e7141c758D9eBec6ab4C376D
+Reward policy ID: 27
+KYC policy ID: 28
+BSC user Address: 0x86d8ca61c43093c17c2f03164226dd6fc1BC2b7E
+Rules engine access: 0xdf1e7dc43e4f56a21780bd2cb9d9eca9912eac96
+
+
+## Rules created
 
 - KYC level > 2
 - KYC'd after Jan 1st 2025
-- Not FRE and OFAC listens
-- User count hitting register < 100
+- Not FRE and OFAC listed
+- User count hitting register < 10
 
+## Contracts created
+- Register: users must hit that register contract to be enrolled
+- KYC: Set and Get KYC level for a user (By admin user) + track timestamp for each user
 
 ---
 
-## 📦 Prerequisites
+## Prerequisites
 
 - [Foundry](https://book.getfoundry.sh/getting-started/installation) (`forge`, `anvil`, etc.)
 - Node.js & npm
@@ -24,14 +36,15 @@ This guide provides a step-by-step process for integrating, deploying, and testi
 **FOR BNB**
 - Use BNB configs that are found in .env.sample
 - Remove ForeignCalls **freOfacSanctioned** and Rules **FC:freOfacSanctioned == false** from ./policies/kyc.json
+  - This is due to the FRE and OFAC contract not being on BNB chain
 - Forte Rules Engine SDK: 0xdf1e7dc43e4f56a21780bd2cb9d9eca9912eac96
 
 
 ---
 
-## 🚀 Step-by-Step Setup
+## Step-by-Step Setup + Run through
 
-### 1. 🧩 Integrate & Deploy the Example Contracts
+### 1. Integrate & Deploy the Example Contracts
 
 #### Inject modifiers into contracts:
 ```bash
@@ -50,7 +63,7 @@ REGISTER_ADDRESS=<deployed_address>
 
 ---
 
-### 2. 🛡️ Deploy the KYC Contract
+### 2. Deploy the KYC Contract
 
 ```bash
 forge script ../script/KYC.s.sol --ffi --broadcast -vvv --non-interactive --rpc-url $RPC_URL --private-key $PRIV_KEY
@@ -65,7 +78,7 @@ Update ForeignCalls KYC address in kyc-level.json with KYC_ADDRESS
 
 ---
 
-### 3. 📜 Create Policies in the Rules Engine
+### 3. Create Policies in the Rules Engine
 
 #### Create the Reward Policy:
 ```bash
@@ -85,7 +98,7 @@ KYC_POLICY_ID=<returned_policy_id>
 
 ---
 
-### 4. 🔗 Link Rules Engine to Register Contract
+### 4. Link Rules Engine to Register Contract
 
 #### Set the Rules Engine address:
 ```bash
@@ -99,7 +112,7 @@ cast call $REGISTER_ADDRESS "rulesEngineAddress()(address)" --rpc-url $RPC_URL
 
 ---
 
-### 5. 👤 Set Calling Contract Admin
+### 5. Set Calling Contract Admin
 
 ```bash
 cast send $REGISTER_ADDRESS "setCallingContractAdmin(address)" $USER_ADDRESS_1 --rpc-url $RPC_URL --private-key $PRIV_KEY
@@ -107,7 +120,7 @@ cast send $REGISTER_ADDRESS "setCallingContractAdmin(address)" $USER_ADDRESS_1 -
 
 ---
 
-### 6. 📬 Subscribe the Contract to Policies
+### 6. Subscribe the Contract to Policies
 
 ```bash
 npx tsx index.ts applyPolicy $REWARD_POLICY_ID $CONTRACT_ADDRESS
@@ -116,7 +129,7 @@ npx tsx index.ts applyPolicy $KYC_POLICY_ID $CONTRACT_ADDRESS
 
 ---
 
-### 7. 🧾 Sanctions Check with Included FRE Adapter
+### 7. Sanctions Check with Included FRE Adapter
 
 The included `anvilState.json` contains the OFAC Sanctions Adapter at:
 
@@ -131,7 +144,7 @@ cast call $FRE_OFAC_SACTIONS_CONTRACT "isDenied(address)(bool)" $USER_ADDRESS_3 
 
 ---
 
-## ✅ KYC + Register Flow
+## KYC + Register Flow
 
 ### Set KYC Level to 3
 ```bash
@@ -150,7 +163,7 @@ cast call $KYC_CONTRACT "getKycTimestamp(address)(uint256)" $USER_ADDRESS_1 --rp
 
 ---
 
-## 💸 Example Registers
+## Example Registers
 
 ### ✅ Successful register (KYC'd User)
 ```bash
@@ -161,21 +174,5 @@ cast send $REGISTER_ADDRESS "transfer(address,uint256)" $USER_ADDRESS_1 40000 --
 ```bash
 cast send $REGISTER_ADDRESS "transfer(address,uint256)" $USER_ADDRESS_2 40000 --rpc-url $RPC_URL --private-key $PRIV_KEY
 ```
-
----
-
-## 📁 Notes
-
-- Ensure `$RPC_URL`, `$PRIV_KEY`, and all contract addresses are set correctly before executing commands.
-- The `anvilState.json` file must match the expected contract addresses (e.g., FRE and OFAC adapter).
-
----
-
-## 📚 References
-
-- [Forte Rules Engine SDK Docs](https://docs.forte.io/rules-engine)
-- [Foundry Book](https://book.getfoundry.sh/)
-- [Anvil Reference](https://book.getfoundry.sh/reference/anvil/)
-- [Cast CLI Docs](https://book.getfoundry.sh/reference/cast/)
 
 ---
